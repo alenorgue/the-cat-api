@@ -12,6 +12,12 @@
 </head>
 
 <body>
+    <label for="pets">Choose a pet:</label>
+    <select name="pets" id="pets">
+        <option value="Cat">Cat</option>
+        <option value="Dog">Dog</option>
+    </select>
+
     <div class="container" id="cat-container" style="width:75%; margin: 1rem auto;text-align: center;">
         <img id="cat-image" src="" alt="un gato">
         <button id="get-cat" style="margin-top: 1rem;">Nuevo Gato</button>
@@ -22,6 +28,29 @@
     </div>
     <script>
         // Suerte !
+const button = document.getElementById('get-cat');
+const catImg = document.getElementById('cat-image');
+const width = document.getElementById('width');
+const height = document.getElementById('height');
+
+async function getCat() {
+    try {
+	const response = await fetch('https://api.thecatapi.com/v1/images/search');
+	const data = await response.json();
+
+    const catData = data[0];
+    catImg.src = catData.url;
+	width.textContent = catData.width;
+    height.textContent = catData.height;
+    }
+    catch (error) {
+        console.error("Error fetching cat image:", error);
+    }
+}
+
+button.addEventListener('click', getCat);
+    
+
     </script>
 </body>
 
