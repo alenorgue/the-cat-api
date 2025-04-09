@@ -19,8 +19,8 @@
     </select>
 
     <div class="container" id="cat-container" style="width:75%; margin: 1rem auto;text-align: center;">
-        <img id="cat-image" src="" alt="un gato">
-        <button id="get-cat" style="margin-top: 1rem;">Nuevo Gato</button>
+        <img id="cat-image" src="" alt="una mascota">
+        <button id="get-pet" style="margin-top: 1rem;">Nuevo Gato</button>
     </div>
     <div class="container">
         <h2 id="width">Width: <span></span></h2>
@@ -28,8 +28,9 @@
     </div>
     <script>
         // Suerte !
-const button = document.getElementById('get-cat');
-const catImg = document.getElementById('cat-image');
+        const petSelector = document.getElementById('pets');
+        const button = document.getElementById('get-pet');
+const petImg = document.getElementById('cat-image');
 const width = document.getElementById('width');
 const height = document.getElementById('height');
 
@@ -39,7 +40,7 @@ async function getCat() {
 	const data = await response.json();
 
     const catData = data[0];
-    catImg.src = catData.url;
+    petImg.src = catData.url;
 	width.textContent = catData.width;
     height.textContent = catData.height;
     }
@@ -47,9 +48,23 @@ async function getCat() {
         console.error("Error fetching cat image:", error);
     }
 }
+async function getDog() {
+            try {
+                const response = await fetch('https://api.thedogapi.com/v1/images/search');
+                const data = await response.json();
+                const dogData = data[0];
+                petImg.src = dogData.url;
+                width.textContent = dogData.width;
+                height.textContent = dogData.height;
+            } catch (error) {
+                console.error("Error fetching dog image:", error);
+            }
+        }
+
 
 button.addEventListener('click', getCat);
-    
+
+petSelector.addEventListener('change', updatePetFetcher);
 
     </script>
 </body>
