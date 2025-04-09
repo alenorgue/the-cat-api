@@ -20,7 +20,7 @@
 
     <div class="container" id="cat-container" style="width:75%; margin: 1rem auto;text-align: center;">
         <img id="cat-image" src="" alt="una mascota">
-        <button id="get-pet" style="margin-top: 1rem;">Nuevo Gato</button>
+        <button id="get-pet" style="margin-top: 1rem;">Nueva mascota</button>
     </div>
     <div class="container">
         <h2 id="width">Width: <span></span></h2>
@@ -30,25 +30,25 @@
         // Suerte !
         const petSelector = document.getElementById('pets');
         const button = document.getElementById('get-pet');
-const petImg = document.getElementById('cat-image');
-const width = document.getElementById('width');
-const height = document.getElementById('height');
+        const petImg = document.getElementById('cat-image');
+        const width = document.getElementById('width');
+        const height = document.getElementById('height');
 
-async function getCat() {
-    try {
-	const response = await fetch('https://api.thecatapi.com/v1/images/search');
-	const data = await response.json();
+        async function getCat() {
+            try {
+                const response = await fetch('https://api.thecatapi.com/v1/images/search');
+                const data = await response.json();
 
-    const catData = data[0];
-    petImg.src = catData.url;
-	width.textContent = catData.width;
-    height.textContent = catData.height;
-    }
-    catch (error) {
-        console.error("Error fetching cat image:", error);
-    }
-}
-async function getDog() {
+                const catData = data[0];
+                petImg.src = catData.url;
+                width.textContent = catData.width;
+                height.textContent = catData.height;
+            }
+            catch (error) {
+                console.error("Error fetching cat image:", error);
+            }
+        }
+        async function getDog() {
             try {
                 const response = await fetch('https://api.thedogapi.com/v1/images/search');
                 const data = await response.json();
@@ -61,10 +61,18 @@ async function getDog() {
             }
         }
 
+        function updatePetFetcher() {
+            const selectedPet = petSelector.value;
+            if (selectedPet === "Cat") {
+                button.textContent = "Nuevo Gato";
+                button.onclick = getCat;
+            } else if (selectedPet === "Dog") {
+                button.textContent = "Nuevo Perro";
+                button.onclick = getDog;
+            }
+        }
 
-button.addEventListener('click', getCat);
-
-petSelector.addEventListener('change', updatePetFetcher);
+        petSelector.addEventListener('change', updatePetFetcher);
 
     </script>
 </body>
