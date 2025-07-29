@@ -52,10 +52,7 @@
                         console.error("Error fetching pet image:", error);
                     }
                 }
-                function handleButton() {
-                    console.log("Button clicked");
-                    fetchPetImage();
-                }
+                
                 watch(pet, () => {
                     fetchPetImage();
                 });
